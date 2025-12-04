@@ -5,6 +5,12 @@
 # cannot rearrange numbers
 # give total joltage output (as the sum of each banks joltage)
 from typing import List
+import time
+
+def run_program():
+  main()
+
+
 
 def main():
   joltage_ratings: List[str] = open("joltage_ratings.txt").read().splitlines()
@@ -35,4 +41,14 @@ def max_bank_joltage(bank_joltage_rating: str, num_batteries: int) -> int:
   return int(joltage_out)
 
 if __name__ == "__main__":
-  main()
+  times = []
+
+  for _ in range(50):
+    start = time.perf_counter()
+    run_program()
+    end = time.perf_counter()
+    times.append((end - start) * 1000)  # convert to ms
+
+  print(f"Average time: {sum(times)/len(times):.3f} ms")
+  print(f"Fastest: {min(times):.3f} ms")
+  print(f"Slowest: {max(times):.3f} ms")
